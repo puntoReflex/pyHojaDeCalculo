@@ -1,5 +1,4 @@
 package Repos;
-
 import java.util.Scanner;
 
 public class HojaCalculo {
@@ -9,8 +8,13 @@ public class HojaCalculo {
     private static int filaAct = 1;
     private static int colAct = 1;
 
-    public static void inicializarMatriz() {
+    public static void main(String[] args) {
+        inicializarMatriz();
+        interactuarConUsuario();
+    }
 
+    public static void inicializarMatriz() {
+        
         for (int i = 1; i < NUM_FILAS; i++) {
             for (int j = 1; j < NUM_COLUMNAS; j++) {
                 matriz[i][j] = "";
@@ -27,18 +31,22 @@ public class HojaCalculo {
 
     public static void interactuarConUsuario() {
 
+        String limite = "";
+        for (int j = 0; j < NUM_COLUMNAS; j++) {
+            limite += "+-------";
+        }
+        limite += "+";
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println(
-                    "Por defecto se encuentra en 'a1'. Ingrese 'w', 'a', 's', 'd' para navegar, 'e' para editar, o 'q' para salir:");
+            System.out.println("Por defecto se encuentra en 'a1'. Ingrese 'w', 'a', 's', 'd' para navegar, 'e' para editar, o 'q' para salir:");
             String entrada = scanner.nextLine();
             if (entrada.equalsIgnoreCase("q")) {
                 break;
             }
             procesarEntrada(entrada, scanner);
             System.out.println("Ahora estás en la celda " + matriz[0][colAct] + filaAct);
-            mostrarMatriz();
+            mostrarMatriz(limite);
         }
 
         scanner.close();
@@ -69,7 +77,7 @@ public class HojaCalculo {
         }
     }
 
-    public static void mostrarMatriz() {
+    public static void mostrarMatriz(String limite) {
         for (int i = 0; i < NUM_FILAS; i++) {
             for (int j = 0; j < NUM_COLUMNAS; j++) {
                 if (j > 0) {
@@ -83,13 +91,8 @@ public class HojaCalculo {
             }
             System.out.println("|");
             if (i == 0 || i == NUM_FILAS - 1) {
-                System.out.println();
+                System.out.println(limite);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        inicializarMatriz();
-        interactuarConUsuario();
     }
 }
