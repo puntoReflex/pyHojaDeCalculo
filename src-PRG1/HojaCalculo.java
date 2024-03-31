@@ -1,12 +1,14 @@
 package Repos;
 
-public class HojaCalculo {
+import java.util.Scanner;
 
+public class HojaCalculo {
 
     private static final int ROWS = 16;
     private static final int COLUMNS = 11;
     private static String[][] matrix = new String[ROWS][COLUMNS];
-
+    private static int currentRow = 1;
+    private static int currentCol = 1;
 
     public static void initializeMatrix() {
 
@@ -22,6 +24,24 @@ public class HojaCalculo {
         for (int col = 1; col < COLUMNS; col++) {
             matrix[0][col] = Character.toString((char) ('a' + col - 1));
         }
+    }
+
+    public static void interactWithUser() {
+
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println(
+                    "By default, you are at 'a1'. Enter 'w', 'a', 's', 'd' to navigate, 'e' to edit, or 'q' to exit:");
+            String entrada = scanner.nextLine();
+            if (entrada.equalsIgnoreCase("q")) {
+                break;
+            }
+
+            System.out.println("Ahora estás en la celda " + matrix[0][currentCol] + currentRow);
+            showMatrix();
+        }
+
+        scanner.close();
     }
 
     public static void showMatrix() {
@@ -47,6 +67,5 @@ public class HojaCalculo {
         initializeMatrix();
         showMatrix();
     }
-
 
 }
