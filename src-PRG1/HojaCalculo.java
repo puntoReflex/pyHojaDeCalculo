@@ -27,6 +27,11 @@ public class HojaCalculo {
     }
 
     public static void interactWithUser() {
+        String limit = "";
+        for (int j = 0; j < COLUMNS; j++) {
+            limit += "+-------";
+        }
+        limit += "+";
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -38,8 +43,8 @@ public class HojaCalculo {
             }
             processInput(input, scanner);
 
-            System.out.println("Ahora estás en la celda " + matrix[0][currentCol] + currentRow);
-            showMatrix();
+            System.out.println("You are now in cell " + matrix[0][currentCol] + currentRow);
+            showMatrix(limit);
         }
 
         scanner.close();
@@ -70,7 +75,7 @@ public class HojaCalculo {
         }
     }
 
-    public static void showMatrix() {
+    public static void showMatrix(String limit) {
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLUMNS; col++) {
                 if (col > 0) {
@@ -84,7 +89,7 @@ public class HojaCalculo {
             }
             System.out.println("|");
             if (row == 0 || row == ROWS - 1) {
-                System.out.println();
+                System.out.println(limit);
             }
         }
     }
