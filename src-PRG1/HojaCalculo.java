@@ -32,16 +32,42 @@ public class HojaCalculo {
         while (true) {
             System.out.println(
                     "By default, you are at 'a1'. Enter 'w', 'a', 's', 'd' to navigate, 'e' to edit, or 'q' to exit:");
-            String entrada = scanner.nextLine();
-            if (entrada.equalsIgnoreCase("q")) {
+            String input = scanner.nextLine();
+            if (input.equalsIgnoreCase("q")) {
                 break;
             }
+            processInput(input, scanner);
 
             System.out.println("Ahora estás en la celda " + matrix[0][currentCol] + currentRow);
             showMatrix();
         }
 
         scanner.close();
+    }
+
+    public static void processInput(String input, Scanner scanner) {
+        switch (input.toLowerCase()) {
+            case "w":
+                currentRow = Math.max(1, currentRow - 1);
+                break;
+            case "a":
+                currentCol = Math.max(1, currentCol - 1);
+                break;
+            case "s":
+                currentRow = Math.min(ROWS - 1, currentRow + 1);
+                break;
+            case "d":
+                currentCol = Math.min(COLUMNS - 1, currentCol + 1);
+                break;
+            case "e":
+                System.out.println("Ingrese el nuevo dato para la celda " + matrix[0][currentCol] + currentRow + ":");
+                String newValue = scanner.nextLine();
+                if (newValue.length() > 7) {
+                    newValue = newValue.substring(0, 7);
+                }
+                matrix[currentRow][currentCol] = newValue;
+                break;
+        }
     }
 
     public static void showMatrix() {
@@ -65,7 +91,7 @@ public class HojaCalculo {
 
     public static void main(String[] args) {
         initializeMatrix();
-        showMatrix();
+        interactWithUser();
     }
 
 }
