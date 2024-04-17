@@ -4,11 +4,17 @@ import java.util.Scanner;
 
 public class HojaCalculo {
 
+    public static void main(String[] args) {
+        initializeMatrix();
+        interactWithUser();
+    }
+
     private static final int ROWS = 16;
     private static final int COLUMNS = 11;
     private static String[][] matrix = new String[ROWS][COLUMNS];
     private static int currentRow = 1;
     private static int currentCol = 1;
+    private static final String EXIT_COMMAND = "q";
 
     public static void initializeMatrix() {
 
@@ -34,17 +40,22 @@ public class HojaCalculo {
         limit += "+";
 
         Scanner scanner = new Scanner(System.in);
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             System.out.println(
                     "By default, you are at 'a1'. Enter 'w', 'a', 's', 'd' to navigate, 'e' to edit, or 'q' to exit:");
             String input = scanner.nextLine();
-            if (input.equalsIgnoreCase("q")) {
-                break;
-            }
-            processInput(input, scanner);
+            if (input.equalsIgnoreCase(EXIT_COMMAND)) {
+                isRunning = false;
 
-            System.out.println("You are now in cell " + matrix[0][currentCol] + currentRow);
-            showMatrix(limit);
+            }
+            if (isRunning) {
+                processInput(input, scanner);
+
+                System.out.println("You are now in cell " + matrix[0][currentCol] + currentRow);
+                showMatrix(limit);
+            }
+
         }
 
         scanner.close();
@@ -65,14 +76,18 @@ public class HojaCalculo {
                 currentCol = Math.min(COLUMNS - 1, currentCol + 1);
                 break;
             case "e":
-                System.out.println("Ingrese el nuevo dato para la celda " + matrix[0][currentCol] + currentRow + ":");
-                String newValue = scanner.nextLine();
-                if (newValue.length() > 7) {
-                    newValue = newValue.substring(0, 7);
-                }
-                matrix[currentRow][currentCol] = newValue;
+                editCell(scanner);
                 break;
         }
+    }
+
+    public static void editCell(Scanner scanner) {
+        System.out.println("Ingrese el nuevo dato para la celda " + matrix[0][currentCol] + currentRow + ":");
+        String newValue = scanner.nextLine();
+        if (newValue.length() > 7) {
+            newValue = newValue.substring(0, 7);
+        }
+        matrix[currentRow][currentCol] = newValue;
     }
 
     public static void showMatrix(String limit) {
@@ -92,11 +107,6 @@ public class HojaCalculo {
                 System.out.println(limit);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        initializeMatrix();
-        interactWithUser();
     }
 
 }
