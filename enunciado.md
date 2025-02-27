@@ -6,7 +6,8 @@ El reto consiste en desarrollar una hoja de cálculo en consola.
 
 | |
 |-|
-La hoja de cálculo debe ser de 15 filas por 10 columnas.
+La hoja de cálculo debe mostrar 15 filas por 9 columnas.
+Debe tener, además, 28 columnas y 100 filas
 La navegación mediante **w**/**a**/**s**/**d**
 Para ingresar un valor, se debe utilizar el comando **e**
 Para terminar, utilizar el comando **q**
